@@ -19,3 +19,4 @@ otree runprodserver
 ```
 
 ## Installation 
+Head over to my fork of otree-core, then follow the development setup.
