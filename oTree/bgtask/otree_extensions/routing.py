@@ -1,6 +1,11 @@
 # channel routes for inclusion in a ChannelNameRouter
-from .consumers import BG_Task
+from .consumers import BackgroundTask, RandomConsumer
+from django.conf.urls import url
 
 channel_name_routes = {
-    "background_tasks": BG_Task
+    "backgroundworker": BackgroundTask,
 }
+
+websocket_routes = [
+    url(r"^ws/random/group_random/$", RandomConsumer)
+]

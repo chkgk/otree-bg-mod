@@ -4,9 +4,7 @@ from .models import Constants
 
 
 class MyPage(Page):
-    def before_next_page(self):
-        print('trying background task')
-        self.player.run_bg_task()
+    pass
 
 
 class ResultsWaitPage(WaitPage):

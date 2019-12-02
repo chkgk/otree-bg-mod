@@ -28,7 +28,14 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(self):
+        print('start randomizer ')
+        async_to_sync(channel_layer.send)(
+            "backgroundworker",
+            {
+                "type": "random_values"
+            },
+        )
 
 
 class Group(BaseGroup):
@@ -36,12 +43,4 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    def run_bg_task(self):
-        print('in model')
-        async_to_sync(channel_layer.send)(
-            "background_tasks",
-            {
-                "type": "count_to",
-                "count": 5
-            },
-        )
+    pass

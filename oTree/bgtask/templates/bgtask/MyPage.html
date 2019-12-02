@@ -7,6 +7,30 @@
 
 {% block content %}
 
+    <p>Random value from server: <span id="random_value"></span></p>
+
     {% next_button %}
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var roomName = "group_random";
+    var output_span = document.getElementById('random_value');
+
+    var chatSocket = new WebSocket(
+        'ws://' + window.location.host +
+        '/ws/random/' + roomName + '/');
+
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        var value = data['value'];
+        output_span.innerHTML = value;
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('socket closed unexpectedly');
+    };
+    
+</script>
 {% endblock %}
