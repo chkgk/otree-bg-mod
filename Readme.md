@@ -23,3 +23,48 @@ otree runprodserver
 
 ## Installation 
 Head over to my fork of otree-core, then follow the development setup to use the forked and modified otree version instead of the original.
+
+## Defining background tasks
+Add an ```otree_extensions``` folder to your app. Then create ```consumers.py``` and ```routing.py```.
+
+The demo below prints a random integer to the standard output every second. (The oTree app in this repository additionally sends it to players via websockets.)
+
+```python
+# routing.py
+from .consumers import BackgroundTask
+
+channel_name_routes = {
+    "backgroundworker": BackgroundTask,
+}
+```
+
+```python
+# consumers.py
+from channels.consumer import SyncConsumer
+from time import sleep
+from random import randint
+
+class BackgroundTask(SyncConsumer):
+    def random_values(self, event):
+        while True:
+            print(randint(0, 100))
+            sleep(1)
+```
+
+Start it from anywhere in oTree:
+```python
+# models.py
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+channel_layer = get_channel_layer()
+
+class Subsession(BaseSubsession):
+    def creating_session(self):
+        async_to_sync(channel_layer.send)(
+            "backgroundworker",
+            {
+                "type": "random_values"
+            },
+        )
+
+```
