@@ -1,0 +1,3 @@
+[submodule "otree-core"]
+	path = otree-core
+	url = https://github.com/chkgk/otree-core.git
