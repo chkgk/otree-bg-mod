@@ -11,12 +11,15 @@ This currently only works if you have a redis-server running and use the runprod
 
 ## Demo
 ```bash
-git clone https://github.com/chkgk/otree-background-tasks
-cd otree-core
+git clone --recurse-submodules https://github.com/chkgk/otree-bg-mod.git
+python3 -m venv venv
+source venv/bin/activate
+cd otree-bg-mod/otree-core
 pip install -e .
-cd ..
+cd ../oTree
+otree resetdb --noinput
 otree runprodserver
 ```
 
 ## Installation 
-Head over to my fork of otree-core, then follow the development setup.
+Head over to my fork of otree-core, then follow the development setup to use the forked and modified otree version instead of the original.
