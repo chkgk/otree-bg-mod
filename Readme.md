@@ -6,8 +6,8 @@ Background tasks can be defined very much like additional websocket consumers an
 
 Basically, with this you can have long running processes in the background that continuously create or process data and then send it to the players over websockets.
 
-## Caveat
-This currently only works if you have a redis-server running and use the runprodserver command. 
+## Requirements
+You need to have redis-server running.
 
 ## Demo
 ```bash
@@ -67,4 +67,19 @@ class Subsession(BaseSubsession):
             },
         )
 
+```
+
+## Using devserver
+It is possible to use ```devserver``` instead of ```runprodserver```, but you need to force oTree to use REDIS (make sure redis-server is running). First, set the environmental variable ```OTREE_USE_REDIS``` to ```True```, then start the backgroundworker separately.
+
+```bash
+# terminal 1
+export OTREE_USE_REDIS=True
+otree devserver
+```
+
+```bash
+# terminal 2
+export OTREE_USE_REDIS=True
+otree runworker backgroundworker
 ```
