@@ -5,3 +5,4 @@ __temp*
 db.sqlite3
 __pycache__/
 *.pyc
+*.egg-info/
